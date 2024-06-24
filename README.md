@@ -25,6 +25,11 @@ export STATUS_4XX_LOG_LEVEL=warning
 # Url to send the tracing data. It can be any tool that supports the OpenTelemetry protocol.
 # ex. Grafana Tempo, Jaeger, etc.
 export OTLP_GRPC_ENDPOINT=http://tempo-distributor.monitoring:4317
+
+# Comma separated string to exclude certain urls from tracking.
+# ex. "client/.*/info,healthcheck":
+# This will exclude requests such as `https://site/client/123/info` and `https://site/xyz/healthcheck`.
+export OTEL_PYTHON_EXCLUDED_URLS="client/.*/info,healthcheck"
 ```
 
 ## Tests
