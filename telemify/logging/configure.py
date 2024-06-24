@@ -12,7 +12,7 @@ def configure(
     additional_processors: list[Processor] | None = None,
     loggers_to_disable: list[str] | None = None,
     loggers_to_propagate: list[str] | None = None,
-    filters: dict[str, logging.Filter] | None = None,
+    filters: dict[str, list[logging.Filter]] | None = None,
 ):
     """Configure logging.
 
@@ -23,7 +23,7 @@ def configure(
     loggers_to_propagate: names of the loggers to propagate logs
         which will be caught by our root logger and formatted correctly by structlog
     filters: specify filters to which to remove particular logs from particular logger
-        ex. {"uvicorn.error": MetricsEndpointFilter()}
+        ex. {"uvicorn.error": [MetricsEndpointFilter()]}
     """
 
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -94,5 +94,7 @@ def configure(
         logging.getLogger(logger).handlers.clear()
         logging.getLogger(logger).propagate = False
 
-    for logger, filter in filters.items():
-        logging.getLogger(logger).addFilter(filter)
+    for logger, current_filters in filters.items():
+        logger_obj = logging.getLogger(logger)
+        for filter in current_filters:
+            logger_obj.addFilter(filter)
