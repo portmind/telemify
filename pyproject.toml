@@ -17,6 +17,14 @@ structlog = "^24.2.0"
 starlette = "^0.37.2"
 urllib3 = "^2.2.2"
 opentelemetry-distro = "^0.46b0"
+opentelemetry-exporter-otlp = "^1.25.0"
+opentelemetry-instrumentation-starlette = "^0.46b0"
+opentelemetry-instrumentation-httpx = "^0.46b0"
+opentelemetry-instrumentation-sqlalchemy = "^0.46b0"
+opentelemetry-instrumentation-celery = "^0.46b0"
+opentelemetry-instrumentation-botocore = "^0.46b0"
+opentelemetry-instrumentation-threading = "^0.46b0"
+opentelemetry-instrumentation-jinja2 = "^0.46b0"
 
 
 [tool.poetry.group.dev.dependencies]
