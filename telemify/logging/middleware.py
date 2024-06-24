@@ -3,6 +3,7 @@ import logging
 import uuid
 from functools import wraps
 
+import msgpack
 import structlog
 from starlette.exceptions import HTTPException
 from starlette.requests import Request
@@ -104,10 +105,16 @@ class LoggerMiddleware:
             None,
         )
 
-        if content_type is not None and content_type == b"application/json":
-            return json.loads(response["body"])
+        body = ""
+        if content_type is not None:
+            if content_type == b"application/json":
+                body = json.loads(response["body"])
+            elif content_type == b"application/msgpack":
+                body = msgpack.loads(response["body"])
+            else:
+                body = response["body"].decode()
 
-        return response["body"].decode()
+        return body
 
     @staticmethod
     def _format_request(request):

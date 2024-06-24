@@ -26,6 +26,7 @@ opentelemetry-instrumentation-botocore = "^0.46b0"
 opentelemetry-instrumentation-threading = "^0.46b0"
 opentelemetry-instrumentation-jinja2 = "^0.46b0"
 prometheus-client = "^0.20.0"
+msgpack = "^1.0.8"
 
 
 [tool.poetry.group.dev.dependencies]
