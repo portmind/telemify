@@ -13,6 +13,66 @@ Seamless instrumentation of tracing, logging, and metrics in FastAPI and Starlet
 $ pip install telemify==0.1.0
 ```
 
+## Usage
+```python
+import uvicorn
+from fastapi import FastAPI
+from sqlalchemy.ext.asyncio import create_async_engine
+from starlette.config import Config
+from telemify.logging.configure import configure as configure_logger
+from telemify.logging.filters import (
+    ExceptionASGIApplicationFilter,
+    MetricsEndpointFilter,
+)
+from telemify.logging.middleware import LoggerMiddleware
+from telemify.logging.processors import add_open_telemetry_spans, drop_color_message_key
+from telemify.metrics.configure import configure as configure_metrics
+from telemify.metrics.middleware import PrometheusMiddleware
+from telemify.tracing.configure import configure as configure_tracing
+
+config = Config()
+LOG_LEVEL: str = config("LOG_LEVEL", cast=str, default="info")
+
+engine = create_async_engine("sqlite+aiosqlite:///test.db")
+
+
+def configure_telemetry(app: FastAPI):
+    configure_logger(
+        json_logs=False,
+        additional_processors=[drop_color_message_key, add_open_telemetry_spans],
+        loggers_to_disable=["uvicorn.access"],
+        loggers_to_propagate=["uvicorn", "uvicorn.error", "sqlalchemy.engine.Engine"],
+        filters={
+            "uvicorn.error": [
+                ExceptionASGIApplicationFilter(),
+            ],
+            "telemify.logging.middleware": [MetricsEndpointFilter()],
+        },
+    )
+    configure_metrics(app)
+    configure_tracing(
+        app,
+        instrument_httpx=True,
+        instrument_sqlalchemy=True,
+        instrument_celery=True,
+        instrument_botocore=True,
+        instrument_jinja2=True,
+        db_engine=engine,
+    )
+
+
+app = FastAPI()
+
+app.add_middleware(LoggerMiddleware)
+app.add_middleware(PrometheusMiddleware)
+configure_telemetry(app)
+
+if __name__ == "__main__":
+    uvicorn.run(
+        app,
+        log_level=LOG_LEVEL,
+    )
+```
 
 ## Environment variables
 ```shell
