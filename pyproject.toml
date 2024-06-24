@@ -13,6 +13,10 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
+structlog = "^24.2.0"
+starlette = "^0.37.2"
+urllib3 = "^2.2.2"
+opentelemetry-distro = "^0.46b0"
 
 
 [tool.poetry.group.dev.dependencies]
