@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "telemify"
+version = "0.1.0"
+description = "Seamless instrumentation of tracing, logging, and metrics in FastAPI and Starlette applications, using opentelemetry structlog, and prometheus-client."
+authors = ["Portmind's ML Engineering Team"]
+maintainers = [
+    "Sevak Harutyunyan <sevak.harutyunyan@portmind.com>",
+    "Tigran Vardanyan <tigran.vardanyan@portmind.com>",
+    "Armen Gabrielyan <armen.gabrielyan@portmind.com>",
+    "Vaghinak Vardanyan <vaghinak.vardanyan@portmind.com>"
+]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.2"
+mypy = "^1.10.0"
+pre-commit = "^3.7.1"
+commitizen = "^3.27.0"
+ruff = "^0.4.10"
+
+
+[tool.ruff.lint]
+select = [
+    "I", # isort
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+    "F", # Pyflakes
+]
+
+
+[tool.ruff.format]
+quote-style = "double"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
