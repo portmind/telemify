@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/portmind/telemify/compare/v0.1.0...v0.1.1) (2024-06-24)
+
+
+### Documentation
+
+* add reference ([5210eed](https://github.com/portmind/telemify/commit/5210eedf58d4fad568533a3ebd9d41ce96b48dea))
+
 ## 0.1.0 (2024-06-24)
 
 
