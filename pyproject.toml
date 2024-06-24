@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "telemify"
-version = "0.1.1"
+version = "0.2.0"
 description = "Seamless instrumentation of tracing, logging, and metrics in FastAPI and Starlette applications, using opentelemetry structlog, and prometheus-client."
 authors = ["Portmind's ML Engineering Team"]
 maintainers = [

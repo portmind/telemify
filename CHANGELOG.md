@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/portmind/telemify/compare/v0.1.1...v0.2.0) (2024-06-24)
+
+
+### Features
+
+* add support for msgpack responses in LoggerMiddleware ([1f846b5](https://github.com/portmind/telemify/commit/1f846b5a00f9a06ea74099c6ead73904d8e20fbb))
+
 ## [0.1.1](https://github.com/portmind/telemify/compare/v0.1.0...v0.1.1) (2024-06-24)
 
 
