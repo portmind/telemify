@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/portmind/telemify/compare/v0.2.0...v0.2.1) (2024-06-24)
+
+
+### Documentation
+
+* add details about the usage ([b167ccf](https://github.com/portmind/telemify/commit/b167ccf00082c4c20e9d1aa5792ace1188bc8258))
+
 ## [0.2.0](https://github.com/portmind/telemify/compare/v0.1.1...v0.2.0) (2024-06-24)
 
 
