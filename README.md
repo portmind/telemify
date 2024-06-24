@@ -32,6 +32,7 @@ export OTLP_GRPC_ENDPOINT=http://tempo-distributor.monitoring:4317
 export OTEL_PYTHON_EXCLUDED_URLS="client/.*/info,healthcheck"
 ```
 
+
 ## Tests
 
 To run the tests, use the following command:
@@ -39,3 +40,7 @@ To run the tests, use the following command:
 ```shell
 $ poetry run pytest
 ```
+
+
+## Reference
+1. [FastAPI with Observability](https://github.com/blueswen/fastapi-observability)
