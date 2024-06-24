@@ -14,6 +14,19 @@ $ pip install telemify==0.1.0
 ```
 
 
+## Environment variables
+```shell
+# Application name to be used to mark signals
+export APP_NAME=unknown
+
+export LOG_LEVEL=info
+export STATUS_4XX_LOG_LEVEL=warning
+
+# Url to send the tracing data. It can be any tool that supports the OpenTelemetry protocol.
+# ex. Grafana Tempo, Jaeger, etc.
+export OTLP_GRPC_ENDPOINT=http://tempo-distributor.monitoring:4317
+```
+
 ## Tests
 
 To run the tests, use the following command:
