@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/portmind/telemify/compare/v0.2.2...v0.3.0) (2024-06-25)
+
+
+### Features
+
+* add python 3.10 support ([b6d097b](https://github.com/portmind/telemify/commit/b6d097b297a7f1630dbf6390f2ff376732656840))
+
 ## [0.2.2](https://github.com/portmind/telemify/compare/v0.2.1...v0.2.2) (2024-06-25)
 
 
