@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/portmind/telemify/compare/v0.2.1...v0.2.2) (2024-06-25)
+
+
+### Documentation
+
+* add repository and homepage links ([101ef3c](https://github.com/portmind/telemify/commit/101ef3cbdf8cdec9cd3b421721c2c295686431b0))
+
 ## [0.2.1](https://github.com/portmind/telemify/compare/v0.2.0...v0.2.1) (2024-06-24)
 
 
