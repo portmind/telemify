@@ -10,7 +10,7 @@ Seamless instrumentation of tracing, logging, and metrics in FastAPI and Starlet
 
 ## Installation
 ```shell
-$ pip install telemify==0.1.0
+$ pip install telemify
 ```
 
 ## Usage
