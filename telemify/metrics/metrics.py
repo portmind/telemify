@@ -9,7 +9,7 @@ REQUESTS = Counter(
 RESPONSES = Counter(
     "app_responses_total",
     "Total count of responses by method, path and status codes.",
-    ["method", "path", "status_code", "app_name"],
+    ["method", "path", "status", "app_name"],
 )
 REQUESTS_PROCESSING_TIME = Histogram(
     "app_requests_duration_seconds",
