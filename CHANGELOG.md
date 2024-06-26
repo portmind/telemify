@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.1](https://github.com/portmind/telemify/compare/v0.3.0...v0.3.1) (2024-06-26)
+
+
+### Bug Fixes
+
+* log an exception traceback in case when 500 or 400 with level=error ([02eb277](https://github.com/portmind/telemify/commit/02eb27703d5de57817584efb85fa995432d8353f))
+
+
+### Documentation
+
+* add a django-structlog reference in readme ([2d3c518](https://github.com/portmind/telemify/commit/2d3c518d1dc1031825eee879a39138fd72a21d81))
+
 ## [0.3.0](https://github.com/portmind/telemify/compare/v0.2.2...v0.3.0) (2024-06-25)
 
 
