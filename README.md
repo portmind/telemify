@@ -104,3 +104,4 @@ $ poetry run pytest
 
 ## Reference
 1. [FastAPI with Observability](https://github.com/blueswen/fastapi-observability)
+2. [django-structlog](https://github.com/jrobichaud/django-structlog)
