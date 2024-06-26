@@ -32,7 +32,7 @@ class PrometheusMiddleware:
                 metrics.RESPONSES.labels(
                     method=method,
                     path=path,
-                    status_code=message["status"],
+                    status=message["status"],
                     app_name=APP_NAME,
                 ).inc()
 
