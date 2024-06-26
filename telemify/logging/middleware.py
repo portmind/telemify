@@ -75,26 +75,38 @@ class LoggerMiddleware:
         )
 
     def _handle_response(self, request: Request, response: Message):
+        if (
+            response["status"] >= 500
+            or response["status"] >= 400
+            and STATUS_4XX_LOG_LEVEL == logging.ERROR
+        ):
+            self._handle_exception(
+                request,
+                status_code=response["status"],
+                response_body=self._parse_body(response),
+            )
+            return
+
+        # if not a cricital error
         logger_args = {
             "code": response["status"],
             "request": self._format_request(request),
         }
-        if response["status"] >= 500:
-            level = logging.ERROR
-            logger_args["response_body"] = self._parse_body(response)
-        elif response["status"] >= 400:
+        if response["status"] >= 400:
             level = STATUS_4XX_LOG_LEVEL
             logger_args["response_body"] = self._parse_body(response)
         else:
             level = logging.INFO
+
         logger.log(level, "request_finished", **logger_args)
         structlog.contextvars.clear_contextvars()
 
-    def _handle_exception(self, request, status_code):
+    def _handle_exception(self, request, status_code, **kwargs):
         logger.exception(
             "request_failed",
             code=status_code,
             request=self._format_request(request),
+            **kwargs,
         )
         structlog.contextvars.clear_contextvars()
 
