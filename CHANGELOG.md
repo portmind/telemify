@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.2](https://github.com/portmind/telemify/compare/v0.3.1...v0.3.2) (2024-06-26)
+
+
+### Bug Fixes
+
+* wrong metric name ([d8a15db](https://github.com/portmind/telemify/commit/d8a15db8edbe441a6b54c7cc9ee07434b4c01f88))
+
 ## [0.3.1](https://github.com/portmind/telemify/compare/v0.3.0...v0.3.1) (2024-06-26)
 
 
