@@ -29,19 +29,19 @@ class LoggerMiddleware:
 
         request = Request(scope)
         response: Message = {}
-        response_body_chunks = []
+        body_chunks = []
 
         @wraps(send)
         async def send_wrapper(message: Message):
             nonlocal response
-            nonlocal response_body_chunks
+            nonlocal body_chunks
 
             if message["type"] == "http.response.start":
                 response = message
             elif response and message["type"] == "http.response.body":
-                response_body_chunks.append(message.get("body", b""))
+                body_chunks.append(message.get("body", b""))
                 if not message.get("more_body", False):
-                    response["body"] = b"".join(response_body_chunks)
+                    response["body"] = b"".join(body_chunks)
                     self._handle_response(request, response)
 
             await send(message)
@@ -50,10 +50,10 @@ class LoggerMiddleware:
             self._handle_request(request)
             await self.app(scope, receive, send_wrapper)
         except Exception as exception:
-            status_code = HTTP_500_INTERNAL_SERVER_ERROR
+            status = HTTP_500_INTERNAL_SERVER_ERROR
             if isinstance(exception, HTTPException):
-                status_code = exception.status_code
-            self._handle_exception(request, status_code)
+                status = exception.status_code
+            self._handle_exception(request, status)
             raise exception
 
     def _handle_request(self, request: Request):
@@ -82,29 +82,29 @@ class LoggerMiddleware:
         ):
             self._handle_exception(
                 request,
-                status_code=response["status"],
-                response_body=self._parse_body(response),
+                status=response["status"],
+                body=self._parse_body(response),
             )
             return
 
         # if not a cricital error
         logger_args = {
-            "code": response["status"],
+            "status": response["status"],
             "request": self._format_request(request),
         }
         if response["status"] >= 400:
             level = STATUS_4XX_LOG_LEVEL
-            logger_args["response_body"] = self._parse_body(response)
+            logger_args["body"] = self._parse_body(response)
         else:
             level = logging.INFO
 
         logger.log(level, "request_finished", **logger_args)
         structlog.contextvars.clear_contextvars()
 
-    def _handle_exception(self, request, status_code, **kwargs):
+    def _handle_exception(self, request, status, **kwargs):
         logger.exception(
             "request_failed",
-            code=status_code,
+            status=status,
             request=self._format_request(request),
             **kwargs,
         )
