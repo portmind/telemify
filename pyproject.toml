@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "telemify"
-version = "0.3.0"
+version = "0.3.1"
 homepage = "https://github.com/portmind/telemify"
 repository = "https://github.com/portmind/telemify"
 description = "Seamless instrumentation of tracing, logging, and metrics in FastAPI and Starlette applications, using opentelemetry structlog, and prometheus-client."
