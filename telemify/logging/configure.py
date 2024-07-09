@@ -61,7 +61,9 @@ def configure(
     log_renderers: list[Processor]
     if json_logs:
         log_renderers = [
-            structlog.processors.dict_tracebacks,
+            structlog.processors.ExceptionRenderer(
+                structlog.traceback.ExceptionDictTransformer(show_locals=show_locals)
+            ),
             structlog.processors.JSONRenderer(),
         ]
     else:
