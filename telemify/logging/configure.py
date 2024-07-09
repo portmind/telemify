@@ -13,6 +13,7 @@ def configure(
     loggers_to_disable: list[str] | None = None,
     loggers_to_propagate: list[str] | None = None,
     filters: dict[str, list[logging.Filter]] | None = None,
+    show_locals: bool = True,
 ):
     """Configure logging.
 
@@ -60,13 +61,17 @@ def configure(
     log_renderers: list[Processor]
     if json_logs:
         log_renderers = [
-            structlog.processors.dict_tracebacks,
+            structlog.processors.ExceptionRenderer(
+                structlog.traceback.ExceptionDictTransformer(show_locals=show_locals)
+            ),
             structlog.processors.JSONRenderer(),
         ]
     else:
         log_renderers = [
             structlog.dev.ConsoleRenderer(
-                exception_formatter=structlog.dev.RichTracebackFormatter()
+                exception_formatter=structlog.dev.RichTracebackFormatter(
+                    show_locals=show_locals
+                )
             )
         ]
 
