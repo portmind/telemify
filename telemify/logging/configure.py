@@ -1,4 +1,5 @@
 import logging
+from typing import Mapping, TypeVar
 
 import structlog
 import urllib3
@@ -6,13 +7,15 @@ from structlog.types import Processor
 
 from telemify.settings import LOG_LEVEL
 
+T_co = TypeVar("T_co", bound=logging.Filter, covariant=True)
+
 
 def configure(
     json_logs: bool = False,
     additional_processors: list[Processor] | None = None,
     loggers_to_disable: list[str] | None = None,
     loggers_to_propagate: list[str] | None = None,
-    filters: dict[str, list[logging.Filter]] | None = None,
+    filters: Mapping[str, list[T_co]] | None = None,
     show_locals: bool = True,
 ):
     """Configure logging.
@@ -62,7 +65,7 @@ def configure(
     if json_logs:
         log_renderers = [
             structlog.processors.ExceptionRenderer(
-                structlog.traceback.ExceptionDictTransformer(show_locals=show_locals)
+                structlog.tracebacks.ExceptionDictTransformer(show_locals=show_locals)
             ),
             structlog.processors.JSONRenderer(),
         ]
