@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/portmind/telemify/compare/v0.4.0...v0.5.0) (2024-07-21)
+
+
+### Features
+
+* add allowed argument to EndpointFilter to allow specific logs ([019e0e4](https://github.com/portmind/telemify/commit/019e0e4c696269fcc7c362aba2ff42b89dbae96c))
+
 ## [0.4.0](https://github.com/portmind/telemify/compare/v0.3.2...v0.4.0) (2024-07-09)
 
 
