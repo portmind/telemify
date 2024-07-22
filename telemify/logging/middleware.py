@@ -1,6 +1,7 @@
 import json
 import logging
 import uuid
+import zlib
 from functools import wraps
 
 import msgpack
@@ -112,21 +113,36 @@ class LoggerMiddleware:
 
     @staticmethod
     def _parse_body(response: Message):
-        content_type = next(
-            (value for key, value in response["headers"] if key == b"content-type"),
-            None,
-        )
+        content_type = LoggerMiddleware._get_header(response, b"content-type")
 
         body = ""
         if content_type is not None:
+            decompressed_body = LoggerMiddleware._decompress_body(response)
             if content_type == b"application/json":
-                body = json.loads(response["body"])
+                body = json.loads(decompressed_body)
             elif content_type == b"application/msgpack":
-                body = msgpack.loads(response["body"])
+                body = msgpack.loads(decompressed_body)
             else:
-                body = response["body"].decode()
+                body = decompressed_body.decode()
 
         return body
+
+    @staticmethod
+    def _decompress_body(response: Message) -> bytes:
+        """Decompress body if it has passed the Gzip middleware"""
+
+        content_encoding = LoggerMiddleware._get_header(response, b"content-encoding")
+        if content_encoding is not None and b"gzip" in content_encoding:
+            return zlib.decompress(response["body"], 16 + zlib.MAX_WBITS)
+
+        return response["body"]
+
+    @staticmethod
+    def _get_header(response: Message, header_key: bytes) -> bytes | None:
+        return next(
+            (value for key, value in response["headers"] if key == header_key),
+            None,
+        )
 
     @staticmethod
     def _format_request(request):
