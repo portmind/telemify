@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/portmind/telemify/compare/v0.5.0...v0.5.1) (2024-07-22)
+
+
+### Bug Fixes
+
+* error when trying to parse compressed body ([fab4526](https://github.com/portmind/telemify/commit/fab4526284c7e7cf39793dcd9fa62e182bbe0f78))
+
 ## [0.5.0](https://github.com/portmind/telemify/compare/v0.4.0...v0.5.0) (2024-07-21)
 
 
